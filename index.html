@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="id" translate="no" class="notranslate">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>Finz</title>
+  <link rel="icon" type="image/png" sizes="any" href="/image/iconfinz.png?v=1">
+  <link rel="shortcut icon" href="/image/iconfinz.png?v=1">
+  <link rel="apple-touch-icon" href="/image/iconfinz.png?v=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="css2.css" rel="stylesheet">
+  <link rel="stylesheet" href="css2_1.css" />
+  <link rel="stylesheet" href="style.html">
+  <link rel="stylesheet" href="neo.html">
+  <link rel="stylesheet" href="catur.html">
+  <meta name="theme-color" content="#FFF1C9">
+  <meta property="og:type" content="website">
+  <meta name="application-name" content="Finz">
+  <style>
+    /* tahan tombol login / prompt login selama status login belum selesai dicek (anti-kedip saat refresh) */
+    html.auth-pending #authActionBtn,html.auth-pending #profileLoginPrompt,html.auth-pending #chatLoginPrompt{visibility:hidden!important}
+    /* English dipilih: sembunyikan sebentar sampai terjemahan selesai (anti-kedip bahasa) */
+    html.lang-pending body{visibility:hidden}
+  </style>
+  <script>
+  try{if(localStorage.getItem('finz_lang')==='en'){document.documentElement.classList.add('lang-pending');document.documentElement.setAttribute('lang','en')}}catch(e){}
+  </script>
+  <script>
+  (function(){try{
+    var has=Object.keys(localStorage).some(function(k){return /^sb-.+-auth-token$/.test(k)});
+    if(!has)return;
+    var h=document.documentElement;h.classList.add('auth-pending');
+    var n=0,t=setInterval(function(){n++;
+      var b=document.getElementById('authActionBtn');
+      /* lepas penahan hanya setelah tombol login benar-benar disembunyikan (user terverifikasi), atau habis waktu */
+      if((b&&b.classList.contains('hidden'))||n>40){h.classList.remove('auth-pending');clearInterval(t)}
+    },100);
+  }catch(e){}})();
+  </script>
+</head>
+<body id="finzNeo" class="bg-white neo">
+
+  <div id="appMount" role="application"></div>
+  <script id="finzThemeColor">
+  /* sinkronkan warna address-bar browser dengan tema aktif (siang/malam x mobile/desktop) */
+  (function(){try{
+    var m=document.querySelector('meta[name="theme-color"]');
+    function u(){var d=document.body.classList.contains('bg-white'),w=matchMedia('(min-width:900px)').matches;
+      m.setAttribute('content',d?(w?'#DCEBFF':'#FFF1C9'):(w?'#08141C':'#150F2A'));}
+    new MutationObserver(u).observe(document.body,{attributes:true,attributeFilter:['class']});
+    matchMedia('(min-width:900px)').addEventListener('change',u);u();
+  }catch(e){}})();
+  </script>
+  <script src="npm_@supabase_supabase-js@2.js"></script>
+  <script src="qr-code-styling@1.5.0_lib_qr-code-styling.js"></script>
+  <script src="ajax_libs_pdf.js_4.4.168_pdf.min.js" type="module" id="pdfjsModule"></script>
+  <script src="npm_jspdf@2.5.1_dist_jspdf.umd.min.js"></script>
+  <script src="npm_xlsx@0.18.5_dist_xlsx.full.min.js"></script>
+  <script type="module" src="language.html"></script>
+  <script src="script.html"></script>
+  <script src="gethtml.html"></script>
+  <script src="catur_1.html"></script>
+  <script src="tictactoe.html"></script>
+  <script src="am.html"></script>
+  <script src="amlink.html"></script>
+  <script src="dllimit.html"></script>
+  <script src="router.html"></script>
+  <script src="music.html"></script>
+</body>
+</html>
